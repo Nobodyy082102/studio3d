@@ -219,6 +219,30 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 
     /* ========================================
+       SCROLL TO TOP BUTTON
+       ======================================== */
+    const scrollTopBtn = document.getElementById('scrollTop');
+
+    if (scrollTopBtn) {
+        // Show/hide button on scroll
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top on click
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    /* ========================================
        CONSOLE MESSAGE
        ======================================== */
     console.log('%c Studio3D ', 'background: linear-gradient(135deg, #6366f1, #ec4899); color: white; font-size: 20px; padding: 10px; border-radius: 5px;');

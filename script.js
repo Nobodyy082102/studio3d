@@ -309,8 +309,6 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ========================================
        GALLERY LIGHTBOX
        ======================================== */
-    const galleryItems = document.querySelectorAll('.gallery-item');
-
     // Create lightbox element
     const lightbox = document.createElement('div');
     lightbox.className = 'lightbox';

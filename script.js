@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     /* ========================================
-       FORM HANDLER (mailto)
+       FORM HANDLER (EmailJS)
        ======================================== */
     const contactForm = document.getElementById('contactForm');
 
@@ -147,35 +147,50 @@ document.addEventListener('DOMContentLoaded', function() {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Get form values
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const telefono = document.getElementById('telefono').value;
-            const tipo = document.getElementById('tipo').value;
-            const messaggio = document.getElementById('messaggio').value;
+            // Get submit button to show loading state
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Invio in corso...';
+            submitBtn.disabled = true;
 
-            // Get tipo label
+            // Get tipo label for the email
             const tipoSelect = document.getElementById('tipo');
             const tipoLabel = tipoSelect.options[tipoSelect.selectedIndex].text;
 
-            // Create mailto body
-            const subject = encodeURIComponent(`Richiesta Preventivo - ${tipoLabel}`);
-            const body = encodeURIComponent(
-                `Nome: ${nome}\n` +
-                `Email: ${email}\n` +
-                `Telefono: ${telefono}\n` +
-                `Tipo di Progetto: ${tipoLabel}\n\n` +
-                `Messaggio:\n${messaggio}`
-            );
+            // Prepare template parameters
+            const templateParams = {
+                nome: document.getElementById('nome').value,
+                email: document.getElementById('email').value,
+                telefono: document.getElementById('telefono').value || 'Non fornito',
+                tipo_progetto: tipoLabel,
+                messaggio: document.getElementById('messaggio').value,
+                current_date: new Date().toLocaleDateString('it-IT')
+            };
 
-            // Open mailto
-            window.location.href = `mailto:info@studio3d.it?subject=${subject}&body=${body}`;
+            // Send email via EmailJS
+            emailjs.send('service_mm65eok', 'template_q2zrz91', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
 
-            // Show success message
-            alert('Grazie per averci contattato! Il tuo client email si aprirà per inviare il messaggio.');
+                    // Show success message
+                    alert('✅ Messaggio inviato con successo! Ti risponderemo entro 24 ore.');
 
-            // Reset form
-            contactForm.reset();
+                    // Reset form
+                    contactForm.reset();
+
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, function(error) {
+                    console.log('FAILED...', error);
+
+                    // Show error message
+                    alert('❌ Errore durante l\'invio. Riprova o contattaci direttamente a info@studio3d.it');
+
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
         });
     }
 

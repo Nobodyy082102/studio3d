@@ -3,19 +3,23 @@
    ======================================== */
 
 :root {
-    /* Colors */
+    /* Colors - Dark Mode */
     --primary-color: #6366f1;
     --secondary-color: #ec4899;
-    --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --bg-light: #f9fafb;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-card-hover: #334155;
+    --text-light: #f1f5f9;
+    --text-muted: #94a3b8;
     --white: #ffffff;
+    --border-color: #334155;
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    /* Shadows - Enhanced for dark mode */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.6);
+    --glow: 0 0 20px rgba(99, 102, 241, 0.3);
 
     /* Border Radius */
     --radius-sm: 8px;
@@ -39,7 +43,8 @@ html {
 
 body {
     font-family: 'Inter', sans-serif;
-    color: var(--text-dark);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -84,12 +89,12 @@ section {
 .section-title {
     font-size: 2.5rem;
     margin-bottom: 15px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .section-subtitle {
     font-size: 1.125rem;
-    color: var(--text-light);
+    color: var(--text-muted);
     max-width: 600px;
     margin: 0 auto;
 }
@@ -111,8 +116,9 @@ section {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     transition: var(--transition);
 }
@@ -132,7 +138,7 @@ section {
     font-family: 'Playfair Display', serif;
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .nav-menu {
@@ -142,7 +148,7 @@ section {
 }
 
 .nav-link {
-    color: var(--text-dark);
+    color: var(--text-light);
     font-weight: 500;
     transition: var(--transition);
     position: relative;
@@ -175,7 +181,7 @@ section {
 .hamburger span {
     width: 25px;
     height: 3px;
-    background: var(--text-dark);
+    background: var(--white);
     transition: var(--transition);
 }
 
@@ -211,7 +217,7 @@ section {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    opacity: 0.1;
+    opacity: 0.15;
     animation: gradientMove 15s ease infinite;
 }
 
@@ -240,7 +246,7 @@ section {
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: var(--text-light);
+    color: var(--text-muted);
     margin-bottom: 40px;
     animation: fadeInUp 0.8s ease 0.2s backwards;
 }
@@ -269,13 +275,21 @@ section {
 }
 
 .stat-icon {
-    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    color: var(--primary-color);
+}
+
+.stat-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .stat-text {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-light);
 }
 
 /* Scroll Indicator */
@@ -355,25 +369,26 @@ section {
 }
 
 .btn-secondary {
-    background: var(--white);
-    color: var(--text-dark);
-    border-color: var(--text-dark);
+    background: transparent;
+    color: var(--white);
+    border-color: var(--white);
 }
 
 .btn-secondary:hover {
-    background: var(--text-dark);
-    color: var(--white);
+    background: var(--white);
+    color: var(--bg-dark);
 }
 
 .btn-outline {
     background: transparent;
-    color: var(--text-dark);
-    border-color: var(--text-dark);
+    color: var(--white);
+    border-color: var(--border-color);
 }
 
 .btn-outline:hover {
-    background: var(--text-dark);
+    background: var(--bg-card);
     color: var(--white);
+    border-color: var(--primary-color);
 }
 
 .btn-full {
@@ -385,7 +400,7 @@ section {
    ======================================== */
 
 .servizi {
-    background: var(--bg-light);
+    background: var(--bg-dark);
 }
 
 .servizi-grid {
@@ -395,9 +410,10 @@ section {
 }
 
 .servizio-card {
-    background: var(--white);
+    background: var(--bg-card);
     padding: 40px 30px;
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     transition: var(--transition);
     text-align: center;
@@ -405,22 +421,31 @@ section {
 
 .servizio-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--glow);
+    border-color: var(--primary-color);
+    background: var(--bg-card-hover);
 }
 
 .servizio-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    color: var(--primary-color);
+}
+
+.servizio-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .servizio-title {
     font-size: 1.5rem;
     margin-bottom: 15px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .servizio-description {
-    color: var(--text-light);
+    color: var(--text-muted);
     line-height: 1.7;
 }
 
@@ -461,8 +486,9 @@ section {
 }
 
 .gallery-item {
-    background: var(--white);
+    background: var(--bg-card);
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     overflow: hidden;
     box-shadow: var(--shadow-md);
     transition: var(--transition);
@@ -474,7 +500,8 @@ section {
 
 .gallery-item:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--glow);
+    border-color: var(--primary-color);
 }
 
 .gallery-image {
@@ -536,11 +563,11 @@ section {
 .gallery-title {
     font-size: 1.25rem;
     margin-bottom: 10px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .gallery-description {
-    color: var(--text-light);
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
@@ -549,7 +576,7 @@ section {
    ======================================== */
 
 .processo {
-    background: var(--bg-light);
+    background: var(--bg-dark);
 }
 
 .processo-grid {
@@ -560,9 +587,10 @@ section {
 }
 
 .processo-step {
-    background: var(--white);
+    background: var(--bg-card);
     padding: 30px 20px;
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     text-align: center;
     transition: var(--transition);
@@ -575,7 +603,8 @@ section {
 
 .processo-step:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--glow);
+    border-color: var(--primary-color);
 }
 
 .step-number {
@@ -589,18 +618,25 @@ section {
 }
 
 .step-icon {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 15px;
+    color: var(--secondary-color);
+}
+
+.step-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .step-title {
     font-size: 1.25rem;
     margin-bottom: 10px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .step-description {
-    color: var(--text-light);
+    color: var(--text-muted);
     font-size: 0.9rem;
 }
 
@@ -624,9 +660,10 @@ section {
 }
 
 .prezzo-card {
-    background: var(--white);
+    background: var(--bg-card);
     padding: 40px 30px;
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     text-align: center;
     transition: var(--transition);
@@ -635,7 +672,8 @@ section {
 
 .prezzo-card:hover {
     transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--glow);
+    border-color: var(--primary-color);
 }
 
 .prezzo-card.highlighted {
@@ -660,7 +698,7 @@ section {
 .prezzo-title {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .prezzo-amount {
@@ -680,7 +718,7 @@ section {
 
 .prezzo-features li {
     padding: 10px 0;
-    color: var(--text-light);
+    color: var(--text-muted);
     position: relative;
     padding-left: 25px;
 }
@@ -698,7 +736,7 @@ section {
    ======================================== */
 
 .contatti {
-    background: var(--bg-light);
+    background: var(--bg-dark);
 }
 
 .contatti-grid {
@@ -708,9 +746,10 @@ section {
 }
 
 .contatti-info {
-    background: var(--white);
+    background: var(--bg-card);
     padding: 40px;
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
     height: fit-content;
 }
@@ -718,7 +757,7 @@ section {
 .info-title {
     font-size: 1.75rem;
     margin-bottom: 30px;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .info-item {
@@ -728,18 +767,26 @@ section {
 }
 
 .info-icon {
-    font-size: 1.75rem;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    color: var(--primary-color);
+}
+
+.info-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .info-label {
     font-size: 0.875rem;
-    color: var(--text-light);
+    color: var(--text-muted);
     margin-bottom: 5px;
 }
 
 .info-value {
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--white);
 }
 
 .info-value:hover {
@@ -757,9 +804,10 @@ section {
 }
 
 .contatti-form {
-    background: var(--white);
+    background: var(--bg-card);
     padding: 40px;
     border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
     box-shadow: var(--shadow-md);
 }
 
@@ -771,7 +819,7 @@ section {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: var(--text-dark);
+    color: var(--text-light);
 }
 
 .form-group input,
@@ -779,8 +827,10 @@ section {
 .form-group textarea {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #e5e7eb;
+    background: var(--bg-dark);
+    border: 2px solid var(--border-color);
     border-radius: var(--radius-sm);
+    color: var(--text-light);
     font-family: 'Inter', sans-serif;
     transition: var(--transition);
 }
@@ -790,6 +840,7 @@ section {
 .form-group textarea:focus {
     outline: none;
     border-color: var(--primary-color);
+    background: var(--bg-card-hover);
 }
 
 .form-group textarea {
@@ -892,7 +943,8 @@ section {
         left: -100%;
         width: 100%;
         height: calc(100vh - 70px);
-        background: var(--white);
+        background: var(--bg-card);
+        border-right: 1px solid var(--border-color);
         flex-direction: column;
         padding: 40px 0;
         transition: var(--transition);
